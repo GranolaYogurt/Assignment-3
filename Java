@@ -1,0 +1,75 @@
+import java.io.*;
+import java.util.*;
+/**
+ * @author (Andrew Abella)
+ * @version (November 20, 2018 | CMPP Assignment 3)
+ */
+public class array
+{
+    public static void main(String args[])throws IOException{
+        String dirtyArray[] = new String [20];
+        String cleanArray[] = new String [20];
+        String removerArray[] = new String [20];
+        String noSpaceArray[] = new String[20];
+        int lineCounter=0;
+
+        File inputFile = new File("palindromes.txt");
+        Scanner palindromes = new Scanner(inputFile);
+        
+        //cleans array
+        while (palindromes.hasNext()){
+            dirtyArray[lineCounter] = palindromes.nextLine();
+            noSpaceArray[lineCounter] = dirtyArray[lineCounter].replaceAll("\\s","");
+            removerArray[lineCounter]= noSpaceArray[lineCounter].replaceAll("[^a-zA-Z0-9]","");
+            cleanArray[lineCounter]= removerArray[lineCounter].toLowerCase();
+            lineCounter++;
+        }
+        
+        palindromes.close();
+        
+        for(int x=0; x < lineCounter; x++){
+            String outputArray = cleanArray[x];
+            int a= outputArray.length();
+            
+            for(int i = a - 1 ; i>=0 ; i--){
+                String reverse="";
+                reverse = reverse + outputArray.charAt(i);
+                
+                if(outputArray.equals(reverse)){
+                    FileWriter pd = new FileWriter ("output.txt",true);
+                    PrintWriter output = new PrintWriter(pd);
+                    output.println(dirtyArray[x]+" is a palindrome.");
+                    output.close();
+                    System.out.println(dirtyArray[x]+" is a palindrome.");
+                }
+                
+                else{
+                    FileWriter pd = new FileWriter ("output.txt",true);
+                    PrintWriter output = new PrintWriter(pd);
+                    output.println(dirtyArray[x]+" is NOT a palindrome.");
+                    output.close();
+                    System.out.println(dirtyArray[x]+" is NOT a palindrome.");
+                }
+            }
+            
+                
+                
+                
+                    //FileWriter pd = new FileWriter ("output.txt",true);
+                    //PrintWriter output = new PrintWriter(pd);
+                    //output.println(dirtyArray[x]+" is a palindrome.");
+                    //output.close();
+                    //System.out.println(dirtyArray[x]+" is a palindrome.");
+                
+                
+                
+                    //FileWriter fo = new FileWriter ("output.txt",true);
+                    //PrintWriter finalOutput = new PrintWriter(fo);
+                    //output.println(dirtyArray[x]+" is NOT a palindrome.");
+                    //output.close();
+                
+
+            
+        }
+     }
+}
